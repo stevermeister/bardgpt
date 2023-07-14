@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Control Iframes with Input</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #iframes-container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      height: 80vh;
+    }
+
+    .iframe {
+      width: 50%;
+      height: 100%;
+      border: none;
+    }
+
+    #input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    #input-container input {
+      width: 400px;
+      height: 40px;
+      font-size: 16px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="iframes-container">
+      <iframe class="iframe" src="https://bard.google.com"></iframe>
+      <iframe class="iframe" src="https://chat.openai.com"></iframe>
+    </div>
+    <div id="input-container">
+      <input type="text" id="control-input" placeholder="Type something to control the iframes" oninput="controlIframes(this.value)">
+    </div>
+  </div>
+
+  <script>
+    function controlIframes(value) {
+      var iframes = document.getElementsByClassName('iframe');
+      for (var i = 0; i < iframes.length; i++) {
+        var iframe = iframes[i];
+        iframe.contentWindow.postMessage(value, '*');
+      }
+    }
+  </script>
+</body>
+</html>
